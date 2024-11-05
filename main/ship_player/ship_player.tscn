@@ -1,0 +1,26 @@
+[gd_scene load_steps=6 format=3 uid="uid://b1p317chpv5u"]
+
+[ext_resource type="Texture2D" uid="uid://07dn1gsw6enf" path="res://assets/PNG_Parts&Spriter_Animation/Ship1/Ship1.png" id="1_h5fjv"]
+[ext_resource type="Script" path="res://main/ship_player/ship_player.gd" id="1_tb53f"]
+[ext_resource type="Texture2D" uid="uid://bawcuetduokhm" path="res://assets/PNG_Parts&Spriter_Animation/Ship1/Exhaust/Normal_flight/Exhaust1/exhaust1.png" id="2_56os4"]
+[ext_resource type="Script" path="res://main/ship_player/ExhaustPlayerShipSprite.gd" id="3_hhadh"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6mwea"]
+size = Vector2(65, 33)
+
+[node name="ShipPlayer" type="CharacterBody2D"]
+script = ExtResource("1_tb53f")
+
+[node name="ShipPlayerShape" type="Node2D" parent="."]
+
+[node name="ShipPlayerSprite" type="Sprite2D" parent="ShipPlayerShape"]
+texture = ExtResource("1_h5fjv")
+
+[node name="ExhaustPlayerShipSprite" type="Sprite2D" parent="ShipPlayerShape/ShipPlayerSprite"]
+position = Vector2(-55, 0)
+texture = ExtResource("2_56os4")
+script = ExtResource("3_hhadh")
+
+[node name="ShipPlayerCollision" type="CollisionShape2D" parent="."]
+position = Vector2(-0.5, 0)
+shape = SubResource("RectangleShape2D_6mwea")
