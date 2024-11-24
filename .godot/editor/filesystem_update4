@@ -1,0 +1,11 @@
+res://main/main_scene.tscn
+res://main/ship_player/ship_player.gd
+res://main/ship_player/ship_player.tscn
+res://main/ship_player/enemy.gd
+res://main/ship_player/bullet.gd
+res://bullet.tscn
+res://main/spawnar.gd
+res://main/ship_player.tscn
+res://main/enemy.gd
+res://enemy.tscn
+res://node_2d.tscn

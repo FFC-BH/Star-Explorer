@@ -1,26 +1,43 @@
 extends CharacterBody2D
 
+var bullet_scene = preload("res://bullet.tscn")
 
-const SPEED = 300.0
-const JUMP_VELOCITY = -400.0
+var speed = 300
+var screen_bounds = Vector2()
+
+func _process(delta):
+	if Input.is_action_just_pressed("ui_accept"):  # "Enter" ou "Espaço"
+		shoot()
+
+func shoot():
+	var bullet = bullet_scene.instance()
+	bullet.position = position
+	get_parent().add_child(bullet)
 
 
-func _init():
-	print(ProjectSettings.get_setting("physics/2d/default_gravity"))
-
+func _ready():
+	
+	screen_bounds = get_viewport_rect().size
 
 func _physics_process(delta):
+	var direction = Vector2()
 
-	# Handle jump.
-	if Input.is_action_just_pressed("ui_accept") and is_on_floor():
-		velocity.y = JUMP_VELOCITY
+	
+	if Input.is_action_pressed("ui_right"):
+		direction.x += 1
+	if Input.is_action_pressed("ui_left"):
+		direction.x -= 1
+	if Input.is_action_pressed("ui_up"):
+		direction.y -= 1
+	if Input.is_action_pressed("ui_down"):
+		direction.y += 1
 
-	# Get the input direction and handle the movement/deceleration.
-	# As good practice, you should replace UI actions with custom gameplay actions.
-	var direction = Input.get_axis("ui_up", "ui_down")
-	if direction:
-		velocity.y = direction * SPEED
-	else:
-		velocity.y = move_toward(velocity.x, 0, SPEED)
 
-	move_and_slide()
+	direction = direction.normalized() * speed
+	var new_position = position + direction * delta
+
+
+	new_position.x = clamp(new_position.x, 0, screen_bounds.x)
+	new_position.y = clamp(new_position.y, 0, screen_bounds.y)
+	
+	position = new_position
